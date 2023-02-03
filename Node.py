@@ -60,3 +60,15 @@ def GS_node(h, Node, tol):
     else:
         h[:,:] = np.nan
         return h
+
+if __name__ == '__main__':
+    Nx, Ny = int(200/2+1), int(110/2+1)
+    h_init = np.ones( (Nx, Ny))*100
+    h_init[0,1:], h_init[1:,0] = 150, 50 # left and bottom fixed head BCs
+    Node = np.zeros( (Nx, Ny), dtype='int')
+    Node[0,:], Node[:,0] = 1, 1 # left and bottom fixed head BCs
+    Node[1:-1,-1] = 24 # no flux top
+    Node[-1,-1] = 34 # no flux upper right
+    Node[-1,1:-1] = 22 # no flux right
+    h_arr = GS_node(h_init, Node, tol=1)
+    print(h_arr.T)
