@@ -1,6 +1,7 @@
 import numpy as np
 from numba import jit
 
+@jit(nopython=True)
 def h_calc(h, Node, i, j):
     if Node[i,j] == 0:
         # internal point
